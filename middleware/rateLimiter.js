@@ -6,7 +6,8 @@ const isDev = NODE_ENV === 'development';
 // General API rate limiter
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: isDev ? 1000 : 100,
+  // Generous for storefront browsing; still protects against abuse.
+  max: isDev ? 1000 : 1000,
   skip: (req) => isDev || req.path.includes('/payments/webhook'),
   message: {
     success: false,
@@ -19,7 +20,7 @@ const apiLimiter = rateLimit({
 // Strict limiter for auth endpoints
 const authLimiter = rateLimit({
   windowMs: 60 * 60 * 1000,
-  max: isDev ? 100 : 10,
+  max: isDev ? 100 : 25,
   skip: (req) => isDev,
   message: {
     success: false,
