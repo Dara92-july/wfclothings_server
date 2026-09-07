@@ -29,8 +29,9 @@ const calculatePricing = (items) => {
     };
   });
 
-  const deliveryFee = subtotal > 500000 ? 0 : 2500;
-  const total = subtotal + deliveryFee;
+  // Delivery handled outside website — no delivery fee
+  const deliveryFee = 0;
+  const total = subtotal;
 
   return {
     items: itemDetails,
